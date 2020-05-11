@@ -13,14 +13,20 @@ import javax.swing.*;
 
 public class Graph {
     public static void show(String function, double a, double b) {
+        final XYSeriesCollection dataset = new XYSeriesCollection();
+        XYSeries a_line = new XYSeries("A");
+        XYSeries b_line = new XYSeries("B");
         XYSeries series = new XYSeries("Graph");
-        for (double i = (a - 5); i < (b + 5); i = i + 0.1) {
+        for (double i = a; i < b; i = i + 0.1) {
             series.add(i, functions(function, i));
         }
-        XYDataset xyDataset = new XYSeriesCollection(series);
+        dataset.addSeries(series);
+
+
+
         JFreeChart chart = ChartFactory
                 .createXYLineChart("function", "x", "y",
-                        xyDataset,
+                        dataset,
                         PlotOrientation.VERTICAL,
                         true, true, true);
         JFrame jFrame = new JFrame("MinimalStaticChart");
@@ -28,6 +34,7 @@ public class Graph {
                 .add(new ChartPanel(chart));
         jFrame.setSize(800, 600);
         jFrame.show();
+
     }
 
     static double functions(String expression, Double variable) {

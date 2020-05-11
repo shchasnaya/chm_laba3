@@ -25,8 +25,8 @@ public class MonteCarlo {
             if(i%4==0) {n = i;
                 break;}
         }
-        int nMonteCarlo=n*10000;//Количество ітераций, из-за большого количества, оно может подвисать
-        rezult += "Amount of parts = "+ n + "\n";
+        int nMonteCarlo=n*100;//Количество ітераций, из-за большого количества, оно может подвисать
+        rezult += "Amount of parts = "+ n + "\nStep = " + h + "\n";
         Double rez= Double.valueOf(0);
 
         for (int i=0;i<nMonteCarlo-1;i++){

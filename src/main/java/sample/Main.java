@@ -15,11 +15,12 @@ import javafx.scene.control.Button;
 
 public class Main extends Application implements EventHandler<ActionEvent> {
     String fun = new String("");
-    TextField limitA = new TextField("A");
-    TextField limitB = new TextField("B");
-    TextField n = new TextField("n");
-    TextField precisionofmethod = new TextField("eps");
-    TextField enter = new TextField("Enter your function");
+    TextField limitA = new TextField();
+
+    TextField limitB = new TextField();
+    TextField n = new TextField();
+    TextField precisionofmethod = new TextField();
+    TextField enter = new TextField();
 
     Button bracket_left = new Button("(");
     Button bracket_right = new Button(")");
@@ -167,7 +168,10 @@ public class Main extends Application implements EventHandler<ActionEvent> {
         uppanel.setPadding(new Insets(10, 10, 20, 10));
         VBox.setMargin(enter, new Insets(0.0, 0.0, 20.0, 0.0));
         VBox.setMargin(methods, new Insets(0.0, 0.0, 20.0, 0.0));
-
+        limitA.setPromptText("A");
+        limitB.setPromptText("B");
+        precisionofmethod.setPromptText("eps");
+        enter.setPromptText("Enter your function");
 
         uppanel.getChildren().addAll(enter, hBox);
 
@@ -417,6 +421,22 @@ public class Main extends Application implements EventHandler<ActionEvent> {
     }
 
     public void getMethod(ChoiceBox<String> methods) {
+        if (enter.getText().isEmpty()
+                || limitA.getText().isEmpty()
+                || limitB.getText().isEmpty()
+                || precisionofmethod.getText().isEmpty()
+                || (enter.getText() == null)
+                || (limitA.getText() == null)
+                || (limitB.getText() == null)
+                || (precisionofmethod.getText() == null)) {
+            out.setText("Invalid input");
+            return;
+        }
+        if(Double.parseDouble(limitA.getText()) >= Double.parseDouble(limitB.getText())) {
+            out.setText("Invalid input");
+            return;
+        }
+
         String method = methods.getValue();
         if (method == "Simpson's method") {
             String function = enter.getText();
